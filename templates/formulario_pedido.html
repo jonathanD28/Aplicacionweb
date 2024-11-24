@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Detalles del Pedido</title>
+    <link rel="stylesheet" href="/static/estilo.css">
+</head>
+<body>
+    <h1>Detalles del Pedido</h1>
+    <form method="POST" action="{{ url_for('formulario_pedido') }}">
+        <label for="fecha">Fecha del Pedido:</label>
+        <input type="date" id="fecha" name="fecha" required>
+        
+        <label for="color">Color:</label>
+        <select id="color" name="color" required>
+            <option value="Rojo">Rojo</option>
+            <option value="Azul">Azul</option>
+            <option value="Amarillo">Amarillo</option>
+            <option value="Verde">Verde</option>
+            <option value="Verde">Rosado</option>
+        </select>
+        
+        <button type="submit">Guardar Pedido</button>
+    </form>
+</body>
+</html>

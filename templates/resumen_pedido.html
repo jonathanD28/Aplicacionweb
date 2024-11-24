@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumen del Pedido</title>
+</head>
+<body>
+    <h1>Resumen del Pedido</h1>
+    <p><strong>Cliente:</strong> {{ pedido.nombre_cliente }}</p>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Fecha del Pedido</th>
+                <th>Fecha de Entrega</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ pedido.fecha_pedido }}</td>
+                <td>{{ pedido.fecha_entrega }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <form method="POST">
+        <button type="submit">Confirmar Pedido</button>
+    </form>
+    <a href="{{ url_for('confirmar_pedido') }}">Regresar</a>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Productos</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Catálogo de Productos</h1>
+    </header>
+    <main>
+        <div class="catalogo">
+            {% for producto in productos %}
+            <div class="producto">
+                <img src="/static/img/{{ producto[5] }}" alt="{{ producto[1] }}">
+                <h3>{{ producto.nombre_producto }}</h3>
+                <p>{{ producto.descripcion }}</p>
+                <p>Precio: ${{ producto.precio }}</p>
+                <p>Categoría: {{ producto.categoria }}</p>
+                <form action="/agregar_carrito" method="POST">
+                    <input type="hidden" name="id_producto" value="{{ producto.id_producto }}">
+                    <button type="submit">Agregar al carrito</button>
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+</body>
+</html>

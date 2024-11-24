@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Pedido</title>
+    <link rel="stylesheet" href="/static/estilo.css">
+</head>
+<body>
+    <header>
+        <h1>Detalle del Pedido</h1>
+    </header>
+    <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <ul class="flash-messages">
+            {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+
+        {% if detalles %}
+        <table>
+            <thead>
+                <tr>
+                    <th>ID Pedido</th>
+                    <th>Fecha Pedido</th>
+                    <th>Fecha Entrega</th>
+                    <th>Estado</th>
+                    <th>ID Producto</th>
+                    <th>Cantidad</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for detalle in detalles %}
+                <tr>
+                    <td>{{ detalle[0] }}</td>
+                    <td>{{ detalle[1] }}</td>
+                    <td>{{ detalle[2] }}</td>
+                    <td>{{ detalle[3] }}</td>
+                    <td>{{ detalle[4] }}</td>
+                    <td>{{ detalle[5] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No hay pedidos registrados.</p>
+        {% endif %}
+    </main>
+    <footer>
+        <a href="{{ url_for('catalogo') }}">Volver al Catálogo</a>
+    </footer>
+</body>
+</html>
