@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{{ url_for('index') }}">Inicio</a>
+            <a href="{{ url_for('catalogo') }}">Catálogo</a>
+            <a href="{{ url_for('ver_carrito') }}">Ver Carrito</a>
+            {% if session['usuario_registrado'] %}
+                <span>Bienvenido, {{ session['nombre_usuario'] }}</span>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main>
+        <h1>Carrito de Compras</h1>
+
+        {% if carrito %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in carrito %}
+                        <tr>
+                            <td>{{ obtener_producto(item.id_producto)['nombre_producto'] }}</td>
+                            <td>{{ item.cantidad }}</td>
+                            <td>${{ obtener_producto(item.id_producto)['precio'] }}</td>
+                            <td>${{ obtener_producto(item.id_producto)['precio'] * item.cantidad }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <form action="{{ url_for('pedido_detalle') }}" method="POST">
+                <label for="fecha_entrega">Fecha de Entrega:</label>
+                <input type="date" id="fecha_entrega" name="fecha_entrega" required>
+
+                <label for="metodo_pago">Método de Pago:</label>
+                <select id="metodo_pago" name="metodo_pago" required>
+                    <option value="transferencia">Transferencia</option>
+                    <option value="efectivo">Efectivo</option>
+                </select>
+
+                <button type="submit">Confirmar Pedido</button>
+            </form>
+        {% else %}
+            <p>Tu carrito está vacío. <a href="{{ url_for('catalogo') }}">Regresa al catálogo</a> para agregar productos.</p>
+        {% endif %}
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Creations Anys</p>
+    </footer>
+</body>
+</html>

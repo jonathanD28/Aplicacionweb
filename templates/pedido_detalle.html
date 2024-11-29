@@ -1,57 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalle del Pedido</title>
-    <link rel="stylesheet" href="/static/estilo.css">
+    <title>Informacion para el pedido</title>
+    <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-    <header>
-        <h1>Detalle del Pedido</h1>
-    </header>
-    <main>
-        {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-        <ul class="flash-messages">
-            {% for category, message in messages %}
-            <li class="{{ category }}">{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-        {% endwith %}
-
-        {% if detalles %}
-        <table>
-            <thead>
-                <tr>
-                    <th>ID Pedido</th>
-                    <th>Fecha Pedido</th>
-                    <th>Fecha Entrega</th>
-                    <th>Estado</th>
-                    <th>ID Producto</th>
-                    <th>Cantidad</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for detalle in detalles %}
-                <tr>
-                    <td>{{ detalle[0] }}</td>
-                    <td>{{ detalle[1] }}</td>
-                    <td>{{ detalle[2] }}</td>
-                    <td>{{ detalle[3] }}</td>
-                    <td>{{ detalle[4] }}</td>
-                    <td>{{ detalle[5] }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        {% else %}
-        <p>No hay pedidos registrados.</p>
-        {% endif %}
-    </main>
-    <footer>
-        <a href="{{ url_for('catalogo') }}">Volver al Catálogo</a>
-    </footer>
+    <h1>Información para el pedido</h1>
+    <ul>
+        {% for item in carrito %}
+            <li>Producto ID: {{ item.id_producto }} | Cantidad: {{ item.cantidad }}</li>
+        {% endfor %}
+    </ul>
+    <form method="POST">
+        <label for="fecha_entrega">Fecha de Entrega:</label>
+        <input type="date" id="fecha_entrega" name="fecha_entrega" required>
+        
+        <label for="color">Color de las Rosas:</label>
+        <select id="color" name="color">
+            <option value="rojo">Rojo</option>
+            <option value="blanco">Blanco</option>
+            <option value="amarillo">Amarillo</option>
+            <option value="verde">Verde</option>
+            <option value="lila">Lila</option>
+        </select>
+        
+        <button type="submit">Confirmar Pedido</button>
+    </form>
 </body>
 </html>

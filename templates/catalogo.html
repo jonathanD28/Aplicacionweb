@@ -9,12 +9,17 @@
 <body>
     <header>
         <h1>Catálogo de Productos</h1>
+        {% if session['id_cliente'] %}
+  <span>Bienvenido, {{ session['id_cliente'] }}</span>
+{% endif %}
     </header>
     <main>
         <div class="catalogo">
             {% for producto in productos %}
             <div class="producto">
-                <img src="/static/img/{{ producto[5] }}" alt="{{ producto[1] }}">
+                <img src="/static/img/{{ producto['imagen'] }}" alt="{{ producto['nombre_producto'] }}">
+
+                
                 <h3>{{ producto.nombre_producto }}</h3>
                 <p>{{ producto.descripcion }}</p>
                 <p>Precio: ${{ producto.precio }}</p>
@@ -23,6 +28,18 @@
                     <input type="hidden" name="id_producto" value="{{ producto.id_producto }}">
                     <button type="submit">Agregar al carrito</button>
                 </form>
+                {% if session.get('usuario_registrado') %}
+                    <!-- Mostrar botón de agregar al carrito si el usuario está registrado -->
+                    <form action="/agregar_carrito" method="POST">
+                        <input type="hidden" name="id_producto" value="{{ producto.id_producto }}">
+                        <input type="number" name="cantidad" value="1" min="1" required>
+                        <button type="submit">Agregar al carrito</button>
+                    </form>
+                {% else %}
+                    <!-- Mostrar botón de registrarse si el usuario no está registrado -->
+                    <p class="error">Debes registrarte para agregar productos al carrito.</p>
+                    <a href="{{ url_for('registro') }}" class="btn-registrarse">Registrarse</a>
+                {% endif %}
             </div>
             {% endfor %}
         </div>

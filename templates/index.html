@@ -10,6 +10,11 @@
 <body>
     <header>
         <h1>¡Bienvenido a Creations Anys!</h1>
+        {% if session['nombre_usuario'] %}
+        <p>Hola, {{ session['nombre_usuario'] }}!</p>
+    {% else %}
+        <p><a href="{{ url_for('registro') }}">Regístrate</a></p>
+    {% endif %}
     </header>
     <main>
         <a href="/registro">Registrarse</a>

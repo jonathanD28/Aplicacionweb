@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factura</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .factura-details {
+            margin-top: 20px;
+        }
+        .factura-details table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .factura-details table th, .factura-details table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .factura-details table th {
+            background-color: #f4f4f4;
+        }
+        .total {
+            text-align: right;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Factura de Compra</h1>
+    <div class="factura-details">
+        <p><strong>Cliente:</strong> {{ nombre_cliente }}</p>
+        <p><strong>Fecha de Pedido:</strong> {{ fecha_pedido }}</p>
+        <p><strong>Fecha de Entrega:</strong> {{ fecha_entrega }}</p>
+        <h2>Productos</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set total = 0 %}
+                {% for item in productos %}
+                    <tr>
+                        <td>{{ item['nombre_producto'] }}</td>
+                        <td>{{ item['cantidad'] }}</td>
+                        <td>${{ item['precio'] }}</td>
+                        <td>${{ item['precio'] * item['cantidad'] }}</td>
+                    </tr>
+                    {% set total = total + (item['precio'] * item['cantidad']) %}
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="total">
+            <p><strong>Total: $</strong>{{ total }}</p>
+        </div>
+    </div>
+</body>
+</html>
