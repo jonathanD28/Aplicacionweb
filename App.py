@@ -61,7 +61,7 @@ def registro():
 
 
 
-# Ruta para mostrar el catálogo
+# Muestrar el catálogo
 @app.route('/catalogo')
 def catalogo():
     lista_productos = obtener_productos() 
